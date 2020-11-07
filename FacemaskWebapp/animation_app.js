@@ -261,6 +261,38 @@ class Animation
         clearTimeout(this.playingInterval);
         this.update();
     }
+
+    shiftRight()
+    {
+        for (let i = CONFIG["grid_length"] - 1; i > -1; i--) {
+            for (let j = CONFIG["grid_height"] - 1; j > -1;  j--) {
+                let led = this.leds[((j) * CONFIG["grid_length"]) + i - 1];
+                console.log(led)
+                if (led){
+                    let color = led.getColor();
+                    this.leds[(j * CONFIG["grid_length"]) + i].updateColor(color);
+                    
+                }
+            }
+        }
+        this.update();
+    }
+
+    shiftLeft()
+    {
+        for (let i = 0; i < CONFIG["grid_length"] - 1; i++) {
+            for (let j = 0; j < CONFIG["grid_height"]; j++) {
+                let led = this.leds[((j) * CONFIG["grid_length"]) + i + 1];
+                console.log(led)
+                if (led){
+                    let color = led.getColor();
+                    this.leds[(j * CONFIG["grid_length"]) + i].updateColor(color);
+                    
+                }
+            }
+        }
+        this.update();
+    }
     
     deleteStep() 
     {
@@ -506,7 +538,7 @@ function newStep() {
 }
 
 function copyStep() {
-    animation.newStep(true)
+    animation.newStep(true);
 }
 
 function insertAfter(v){
@@ -521,4 +553,12 @@ function colorPick(v) {
     else {
         setMode(mode);
     }
+}
+
+function shiftRight(){
+    animation.shiftRight();
+}
+
+function shiftLeft(){
+    animation.shiftLeft();
 }
